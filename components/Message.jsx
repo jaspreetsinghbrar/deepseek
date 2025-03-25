@@ -1,5 +1,5 @@
 import { assets } from "@/assets/assets";
-import { Span } from "next/dist/trace";
+
 import Image from "next/image";
 
 const Message = ({ role, content }) => {
