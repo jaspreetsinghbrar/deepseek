@@ -1,5 +1,4 @@
 import { assets } from "@/assets/assets";
-
 import Image from "next/image";
 
 const Message = ({ role, content }) => {
