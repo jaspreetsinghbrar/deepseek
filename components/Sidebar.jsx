@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function Sidebar({ expand, setExpand }) {
   const { openSignIn } = useClerk();
-  const { user } = useAppContext();
+  const { user, chats, createNewChat } = useAppContext();
   const [openMenu, setOpenMenu] = useState({ id: 1, open: false });
 
   return (
@@ -56,6 +56,7 @@ export default function Sidebar({ expand, setExpand }) {
           </div>
         </div>
         <button
+          onClick={createNewChat}
           className={`mt-8 flex items-center justify-center cursor-pointer ${
             expand
               ? "bg-primary hover:opacity-90 rounded-2xl gap-2 p-2.5"
@@ -79,7 +80,15 @@ export default function Sidebar({ expand, setExpand }) {
           }`}
         >
           <p className="my-1">Recents</p>
-          <ChatLabel openMenu={openMenu} setOpenMenu={setOpenMenu} />
+          {chats.map((chat, index) => (
+            <ChatLabel
+              key={index}
+              name={chat.name}
+              id={chat._id}
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
+            />
+          ))}
         </div>
       </div>
       <div>
@@ -117,7 +126,7 @@ export default function Sidebar({ expand, setExpand }) {
           )}
         </div>
         <div
-          onClick={user ? null : openSignIn}
+          onClick={openSignIn}
           className={`flex items-center ${
             expand ? "hover:bg-white/10 rounded-lg" : "w-full justify-center"
           } gap-3 text-white/60 text-sm p-2 mt-2 cursor-pointer`}
@@ -127,7 +136,6 @@ export default function Sidebar({ expand, setExpand }) {
           ) : (
             <Image src={assets.profile_icon} alt="" className="w-7" />
           )}
-
           {expand && <span>My Profile</span>}
         </div>
       </div>
